@@ -7,5 +7,58 @@
 
 body {
   max-height: 100vh;
-  background-color: #26251c;
+  background-color: #ebf2f2;
+}
+
+.user_auth_main {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.user_auth_main form {
+  width: 35rem;
+  height: fit-content;
+  background-color: #383939;
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+  padding: 2rem;
+  border-radius: .8rem;
+}
+
+.user_auth_main form h1 {
+  color: white;
+}
+
+.user_auth_main form input {
+  padding: .8rem;
+  border-radius: .4rem;
+  border: 1px solid white;
+}
+
+.user_auth_main form button {
+  padding: .8rem;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  border-radius: .4rem;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: .4s ease all;
+  background-color: #41e472;
+  color: white;
+}
+
+.user_auth_main form button:hover {
+  background: transparent;
+  border: 1px solid #41e472;
+  color: white;
+}
+
+.user_auth_main form a {
+  text-align: center;
+  color: white;
 }

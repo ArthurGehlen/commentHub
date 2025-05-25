@@ -1,13 +1,13 @@
 import { Link } from 'react-router-dom'
 import { supabase } from '../client'
 import { useState } from 'react'
-import './SignUp.css'
 
 function SignUP() {
     const [formData, setFormData] = useState({
         full_name: '',
         email: '',
-        password: ''
+        password: '',
+        confirmed_password: ''
     })
 
     function handle_change(e) {
@@ -22,6 +22,11 @@ function SignUP() {
     async function handle_submit(e) {
         e.preventDefault()
 
+        if (formData.password !== formData.confirmed_password) {
+            alert('Erro: as senhas não correspondem.')
+            return
+        }
+
         try {
             const { error } = await supabase.auth.signUp(
                 {
@@ -34,8 +39,8 @@ function SignUP() {
                     }
                 })
             if (error) throw error
-            alert('Check your email for verification link...')
-            setFormData({full_name: '', email: '', password: ''})
+            alert('Cheque seu e-mail. Enviamos um link de verificação.')
+            setFormData({ full_name: '', email: '', password: '', confirmed_password: '' })
         }
         catch (error) {
             alert(error.message)
@@ -43,17 +48,18 @@ function SignUP() {
     }
 
     return (
-        <>
+        <main className='user_auth_main'>
             <form onSubmit={handle_submit}>
-                <h1>Sign-Up</h1>
+                <h1>Cadastre-se</h1>
                 <input
                     type="text"
-                    placeholder='FullName'
+                    placeholder='Nome de Usuário'
                     name='full_name'
                     onChange={handle_change}
                     value={formData.full_name}
                     maxLength={50}
                 />
+
 
                 <input
                     type="email"
@@ -65,21 +71,29 @@ function SignUP() {
 
                 <input
                     type="password"
-                    placeholder='Password'
+                    placeholder='Senha (mín. 6 caracteres)'
                     name='password'
                     onChange={handle_change}
                     value={formData.password}
+                />
+
+                <input
+                    type="password"
+                    placeholder='Confirmar Senha'
+                    name='confirmed_password'
+                    onChange={handle_change}
+                    value={formData.confirmed_password}
                 />
 
                 <button type='submit'>
                     Submit
                 </button>
 
-                <p>
-                    Already have an account? <Link to={'/'}>Login</Link>
-                </p>
+                <Link to={'/'}>
+                    Já tem uma conta? Entrar
+                </Link>
             </form>
-        </>
+        </main>
     )
 }
 

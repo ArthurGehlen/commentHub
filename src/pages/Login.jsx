@@ -1,7 +1,6 @@
 import { Link, useNavigate } from 'react-router-dom'
 import { supabase } from '../client'
 import { useState } from 'react'
-import './Login.css'
 
 function Login({ setToken }) {
     let navigator = useNavigate()
@@ -38,7 +37,7 @@ function Login({ setToken }) {
     }
 
     return (
-        <>
+        <main className='user_auth_main'>
             <form className='login_form' onSubmit={handle_submit}>
                 <h1>Login</h1>
                 <input
@@ -50,20 +49,20 @@ function Login({ setToken }) {
 
                 <input
                     type="password"
-                    placeholder='Password'
+                    placeholder='Senha'
                     name='password'
                     onChange={handle_change}
                 />
 
                 <button type='submit'>
-                    Submit
+                    Entrar
                 </button>
 
-                <p>
-                    Don't have an account? <Link to={'/signup'}>Sign Up</Link>
-                </p>
+                <Link to={'/signup'}>
+                    Não tem uma conta? Cadastre-se
+                </Link>
             </form>
-        </>
+        </main>
     )
 }
 

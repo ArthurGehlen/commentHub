@@ -1,4 +1,4 @@
-import { SignUp, Login, Home } from './components'
+import { SignUp, Login, Home } from './pages'
 import { Routes, Route } from 'react-router-dom'
 import { useState } from 'react'
 import './App.css'
