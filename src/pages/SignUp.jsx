@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom'
 import { supabase } from '../client'
 import { useState } from 'react'
 
-function SignUP() {
+function SignUp() {
     const [formData, setFormData] = useState({
         full_name: '',
         email: '',
@@ -53,11 +53,11 @@ function SignUP() {
                 <h1>Cadastre-se</h1>
                 <input
                     type="text"
-                    placeholder='Nome de Usuário'
+                    placeholder='Nome de Usuário (max. 20 caracteres)'
                     name='full_name'
                     onChange={handle_change}
                     value={formData.full_name}
-                    maxLength={50}
+                    maxLength={20}
                 />
 
 
@@ -97,4 +97,4 @@ function SignUP() {
     )
 }
 
-export default SignUP
+export default SignUp

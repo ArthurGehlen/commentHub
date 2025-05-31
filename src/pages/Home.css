@@ -4,22 +4,21 @@
     background-color: #383939;
 }
 
-#navbar {
+#home_main header {
     width: 100%;
     padding: 2rem;
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
-    position: fixed;
     gap: 1rem;
 }
 
-#navbar h1 {
+#home_main header h1 {
     font-size: 2rem;
     color: #fcdfbd;
 }
 
-#navbar button {
+#home_main header button {
     cursor: pointer;
     padding: .6rem 1.4rem;
     border-radius: 10rem;
@@ -33,12 +32,139 @@
     gap: .8rem;    
 }
 
-#navbar button svg {
+#home_main header button svg {
     font-size: 1.4rem;
 }
 
-#navbar button:hover {
+#home_main header button:hover {
     background-color: transparent;
     border: 1px solid #e92c3c;
     color: white;
+}
+
+#comments_section {
+    overflow-x: auto;
+    height: 75%;
+    background-color: white;
+    margin: 2rem auto;
+    width: 65%;
+    padding: 1.8rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+#comments_section .comment_container {
+    display: flex;
+    gap: 1rem;
+}
+
+#comments_section .comment_container input {
+    width: 97.5%;
+    border: none;
+    border-bottom: 1px solid #d5d1ca;
+    outline: none;
+    transition: all .4s;
+}
+
+#comments_section .comment_container input:focus {
+    border-bottom: 1px solid #02070e;
+}
+
+#comments_section .comment_container input:focus::placeholder {
+    color: #02070e;
+}
+
+#comments_section .comment_container input::placeholder {
+    color: #aba298;
+}
+
+.user_icon {
+    background-color: #1f1c0d;  
+    min-width: 2.6rem;
+    height: 2.4rem;
+    padding: .6rem;
+    border-radius: 50%;
+    fill: white;
+}
+
+#comments_section .comment_container button {
+    width: 12.5%;
+    padding: .4rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    background-color: #6be952;
+    border: none;
+    border-radius: 5px;
+    transition: background-color .4s;
+}
+
+#comments_section .comment_container button:hover {
+    background-color: #2bd21a;
+}
+
+#comments_section .comment_container button svg {
+    font-size: 1.4rem;
+    fill: white;
+} 
+
+#comments_section .comments_section {
+    display: flex;
+    flex-direction: column;
+    gap: 1.75rem;
+}
+
+#comments_section .comments_section .comment {
+    width: 100%;
+    height: 6rem;
+    display: flex;
+}
+
+#comments_section .comments_section .comment .user_img {
+    min-width: 4%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#comments_section .comments_section .comment .content {
+    height: 100%;
+    width: 95%;
+    display: flex;
+    flex-direction: column;
+}
+
+#comments_section .comments_section .comment .content header {
+    height: 50%;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 1rem;
+}
+
+#comments_section .comments_section header button {
+    padding: .2rem 1.25rem;
+} 
+
+#comments_section .comments_section header button:hover svg {
+    color: #e92c3c;
+}
+
+#comments_section .comments_section .comment_p {
+    line-break: auto;
+    padding: 0 1rem;
+    line-height: 1.5rem;
+    max-width: 80%;
+    color: #636f82;
+}
+
+@media screen and (max-width: 476px) {
+    #comments_section {
+        width: 100%;
+        padding: .6rem;
+    }
 }
