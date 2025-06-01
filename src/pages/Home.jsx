@@ -9,20 +9,19 @@ import { useState, useEffect } from "react"
 import { supabase } from '../client'
 import './Home.css'
 
-function Home({ token }) {
+function Home() {
     let navigator = useNavigate()
+    const [user, setUser] = useState(null)
     const [comments, setComments] = useState([])
     const [comment, setComment] = useState('')
 
     function handle_logout() {
-        sessionStorage.removeItem('token')
+        supabase.auth.signOut() 
         navigator('/')
     }
 
     async function handle_comment(e) {
-        e.preventDefault();
-
-        const { data: { user } } = await supabase.auth.getUser()
+        e.preventDefault()
 
         if (!user) {
             alert('Usuário não autorizado')
@@ -31,7 +30,10 @@ function Home({ token }) {
 
         const { error } = await supabase
             .from('comments')
-            .insert({ user_name: token.user.user_metadata['full_name'], comment: comment })
+            .insert({
+                user_name: user.user_metadata.full_name,
+                comment: comment
+            })
 
         if (error) {
             alert('Erro ao inserir comentário: ' + error.message)
@@ -47,7 +49,11 @@ function Home({ token }) {
     }
 
     async function get_comments() {
-        const { data } = await supabase.from('comments').select('*')
+        const { data, error } = await supabase.from('comments').select('*')
+        if (error) {
+            console.error('Erro ao buscar comentários:', error.message)
+            return
+        }
         setComments(data)
     }
 
@@ -56,17 +62,27 @@ function Home({ token }) {
             .from('comments')
             .delete()
             .eq('id', id)
-        if (error) throw error
+        if (error) {
+            console.error('Erro ao deletar comentário:', error.message)
+            return
+        }
         get_comments()
     }
 
     useEffect(() => {
         async function check_user() {
-            const { data: { user } } = await supabase.auth.getUser()
+            const { data: { user }, error } = await supabase.auth.getUser()
+
+            if (error) {
+                console.error('Erro ao obter usuário:', error.message)
+                return
+            }
 
             if (!user) {
                 alert('Você não está autenticado!')
                 navigator('/')
+            } else {
+                setUser(user)
             }
         }
 
@@ -74,11 +90,10 @@ function Home({ token }) {
         get_comments()
     }, [])
 
-
     return (
         <main id='home_main'>
             <header id='navbar'>
-                <h1>Bem-Vindo de volta, {token.user.user_metadata['full_name']}</h1>
+                <h1>Bem-Vindo de volta, {user?.user_metadata?.full_name}</h1>
 
                 <button onClick={handle_logout}>
                     Logout
@@ -94,7 +109,8 @@ function Home({ token }) {
                         placeholder="Comente algo (max. 120 caracteres)"
                         onChange={handle_change}
                         value={comment}
-                        maxLength={120} />
+                        maxLength={120}
+                    />
                     <button type="submit">
                         <IoIosSend />
                     </button>
@@ -113,11 +129,11 @@ function Home({ token }) {
                                     <div className="user">
                                         <h2>{comment.user_name}</h2>
                                     </div>
-                                    {comment.user_name === token.user.user_metadata['full_name'] &&
+                                    {comment.user_name === user?.user_metadata?.full_name && (
                                         <button onClick={() => delete_comment(comment.id)}>
                                             <MdDelete />
                                         </button>
-                                    }
+                                    )}
                                 </header>
                                 <p className="comment_p">{comment.comment}</p>
                             </div>

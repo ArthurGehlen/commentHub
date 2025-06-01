@@ -52,6 +52,15 @@ body {
   color: white;
 }
 
+.user_auth_main form #google_btn {
+  border: 1px solid #41e472;
+  background: transparent;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: .6rem;
+}
+
 .user_auth_main form button:hover {
   background: transparent;
   border: 1px solid #41e472;

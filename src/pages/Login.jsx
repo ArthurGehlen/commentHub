@@ -1,4 +1,5 @@
 import { Link, useNavigate } from 'react-router-dom'
+import { FaGoogle } from "react-icons/fa"
 import { supabase } from '../client'
 import { useState } from 'react'
 
@@ -19,6 +20,17 @@ function Login({ setToken }) {
         })
     }
 
+    async function sign_in_with_google() {
+        const { error } = await supabase.auth.signInWithOAuth({
+            provider: "google",
+            options: {
+                redirectTo: `${window.location.origin}/home`
+                }
+        })
+        if (error) console.error(error);
+        navigator('/home')
+    }
+
     async function handle_submit(e) {
         e.preventDefault()
 
@@ -27,7 +39,7 @@ function Login({ setToken }) {
                 email: formData.email,
                 password: formData.password,
             })
-            if (error) throw error
+            if (error) console.error(error)
             setToken(data)
             navigator('/home')
         }
@@ -56,6 +68,11 @@ function Login({ setToken }) {
 
                 <button type='submit'>
                     Entrar
+                </button>
+
+                <button onClick={sign_in_with_google} id='google_btn'>
+                    <FaGoogle />
+                    Entre com o google
                 </button>
 
                 <Link to={'/signup'}>
