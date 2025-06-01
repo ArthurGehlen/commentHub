@@ -25,7 +25,7 @@ function Login({ setToken }) {
             provider: "google",
             options: {
                 redirectTo: `${window.location.origin}/home`
-                }
+            }
         })
         if (error) console.error(error);
         navigator('/home')

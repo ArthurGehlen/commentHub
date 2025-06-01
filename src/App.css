@@ -61,6 +61,10 @@ body {
   gap: .6rem;
 }
 
+.user_auth_main form #google_btn:hover {
+  background-color: #41e472;
+}
+
 .user_auth_main form button:hover {
   background: transparent;
   border: 1px solid #41e472;

@@ -16,7 +16,7 @@ function Home() {
     const [comment, setComment] = useState('')
 
     function handle_logout() {
-        supabase.auth.signOut() 
+        supabase.auth.signOut()
         navigator('/')
     }
 
@@ -73,22 +73,20 @@ function Home() {
         async function check_user() {
             const { data: { user }, error } = await supabase.auth.getUser()
 
-            if (error) {
-                console.error('Erro ao obter usuário:', error.message)
-                return
-            }
-
             if (!user) {
                 alert('Você não está autenticado!')
                 navigator('/')
             } else {
                 setUser(user)
             }
-        }
 
+            if (error) console.error(error)
+        }
+        
         check_user()
         get_comments()
     }, [])
+
 
     return (
         <main id='home_main'>
