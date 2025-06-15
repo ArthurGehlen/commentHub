@@ -28,7 +28,6 @@ function Login({ setToken }) {
             }
         })
         if (error) console.error(error);
-        navigator('/home')
     }
 
     async function handle_submit(e) {

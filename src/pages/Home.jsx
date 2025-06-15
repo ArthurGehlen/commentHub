@@ -28,6 +28,11 @@ function Home() {
             return
         }
 
+        if (comment.trim() === '') {
+            alert('O comentário não pode estar vazio')
+            return
+        }
+
         const { error } = await supabase
             .from('comments')
             .insert({
@@ -36,9 +41,8 @@ function Home() {
             })
 
         if (error) {
-            alert('Erro ao inserir comentário: ' + error.message)
+            console.error('Erro ao inserir comentário: ' + error.message)
         } else {
-            alert('Comentário inserido com sucesso!')
             setComment('')
             get_comments()
         }
@@ -78,6 +82,8 @@ function Home() {
                 navigator('/')
             } else {
                 setUser(user)
+                console.log(user)
+                document.title = `Bem-vindo, ${user.user_metadata.full_name}`
             }
 
             if (error) console.error(error)
@@ -123,11 +129,11 @@ function Home() {
                                 <FaUser className="user_icon" />
                             </div>
                             <div className="content">
-                                <header>
+                                <header className="comment_header">
                                     <div className="user">
                                         <h2>{comment.user_name}</h2>
                                     </div>
-                                    {comment.user_name === user?.user_metadata?.full_name && (
+                                    {comment.user_id === user?.id && (
                                         <button onClick={() => delete_comment(comment.id)}>
                                             <MdDelete />
                                         </button>

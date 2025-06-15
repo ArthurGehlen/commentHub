@@ -43,11 +43,10 @@
 }
 
 #comments_section {
-    overflow-x: auto;
-    height: 75%;
+    overflow-y: auto;
+    width: 100%;
+    height: 90%;
     background-color: white;
-    margin: 2rem auto;
-    width: 65%;
     padding: 1.8rem;
     display: flex;
     flex-direction: column;
@@ -89,7 +88,7 @@
 }
 
 #comments_section .comment_container button {
-    width: 12.5%;
+    width: 15%;
     padding: .4rem;
     display: flex;
     align-items: center;

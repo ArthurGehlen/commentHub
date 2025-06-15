@@ -6,7 +6,7 @@
 }
 
 body {
-  max-height: 100vh;
+  overflow: hidden;
   background-color: #ebf2f2;
 }
 
